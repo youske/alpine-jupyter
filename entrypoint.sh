@@ -1,3 +1,6 @@
 #!/bin/sh -e
-[ "$1" = 'jupyter notebook' ] && {chown -R jupyter . ; exec gosu jupyter "$@" ; } || :
-exec "$@"
+jupyter notebook &
+#cat <<EOF >>~/.bashrc
+#trap " exit 0" TERM
+#EOF
+exec /bin/sh

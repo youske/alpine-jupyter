@@ -380,7 +380,7 @@ c.NotebookApp.port = 8888
 
 # The digest scheme used to construct the message signatures. Must have the form
 # 'hmac-HASH'.
-# c.Session.signature_scheme = 'hmac-sha256'
+c.Session.signature_scheme = 'hmac-sha256'
 
 # The name of the unpacker for unserializing messages. Only used with custom
 # functions for `packer`.
@@ -396,7 +396,7 @@ c.NotebookApp.port = 8888
 # A class for managing multiple kernels.
 
 # The name of the default kernel to start
-# c.MultiKernelManager.default_kernel_name = 'python2'
+c.MultiKernelManager.default_kernel_name = 'python2'
 
 # The kernel manager class.  This is configurable to allow subclassing of the
 # KernelManager for customized behavior.
@@ -459,13 +459,13 @@ c.NotebookApp.port = 8888
 # c.ContentsManager.pre_save_hook = None
 
 # The base name used when creating untitled directories.
-# c.ContentsManager.untitled_directory = 'Untitled Folder'
+c.ContentsManager.untitled_directory = 'Untitled Folder'
 
 # The base name used when creating untitled files.
-# c.ContentsManager.untitled_file = 'untitled'
+c.ContentsManager.untitled_file = 'untitled'
 
 # The base name used when creating untitled notebooks.
-# c.ContentsManager.untitled_notebook = 'Untitled'
+c.ContentsManager.untitled_notebook = 'Untitled'
 
 #------------------------------------------------------------------------------
 # FileManagerMixin configuration
@@ -525,11 +525,11 @@ c.NotebookApp.port = 8888
 # A class for computing and verifying notebook signatures.
 
 # The hashing algorithm used to sign notebooks.
-# c.NotebookNotary.algorithm = 'sha256'
+c.NotebookNotary.algorithm = 'sha256'
 
 # The number of notebook signatures to cache. When the number of signatures
 # exceeds this value, the oldest 25% of signatures will be culled.
-# c.NotebookNotary.cache_size = 65535
+c.NotebookNotary.cache_size = 65535
 
 # The sqlite file in which to store notebook signatures. By default, this will
 # be in your Jupyter runtime directory. You can set it to ':memory:' to disable
