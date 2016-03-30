@@ -1,0 +1,15 @@
+version: "2"
+services:
+
+  jupyternotebook:
+    container_name: jupyter-vm
+    build: build
+    ports:
+      - "8888:8888"
+    ulimits:
+      nofile:
+        soft: 20000
+        hard: 40000
+      nproc: 65535
+    stdin_open: true
+    tty: true

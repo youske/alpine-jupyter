@@ -1,15 +1,17 @@
+#
 .git
 node_modules/
 vendor/
 tests/
 
+#
 .gitignore
 .sync-config.cson
 .remote-sync.json
 LICENSE*
-Makefile*
 README*
 
+#
 .tags
 *.swp
 *.lck
