@@ -5,10 +5,16 @@ tests/
 
 
 #
-.tags
+.gitignore
+.gitkeep
+.gitattribute
 .sync-config.cson
 .remote-sync.json
+
+.tags
 *.swp
 *.lck
 *.*~
 *~
+
+!.gitkeep

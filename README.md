@@ -10,6 +10,9 @@ youske/alpine-conda
 2. root権限で動作
 3. /jupyter_notebookをホームディレクトリとする
 
+
+docker-compose up -d
+
 # volume
 /jupyter_notebookにマウントさせるとnotebookのルートとなるため
 以下のようにデータコンテナを作り

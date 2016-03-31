@@ -11,5 +11,5 @@ services:
         soft: 20000
         hard: 40000
       nproc: 65535
-    stdin_open: true
-    tty: true
+    stdin_open: false
+    tty: false
