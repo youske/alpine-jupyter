@@ -4,12 +4,22 @@ services:
   jupyternotebook:
     container_name: jupyter-vm
     build: build
-    ports:
-      - "8888:8888"
     ulimits:
       nofile:
         soft: 20000
         hard: 40000
       nproc: 65535
-    stdin_open: false
-    tty: false
+    ports:
+      - "8888:8888"
+    volumes:
+      - notebook:/jupyter_notebook
+    networks:
+      - front
+
+volumes:
+  notebook:
+    driver: local
+
+networks:
+  front:
+    driver: bridge
