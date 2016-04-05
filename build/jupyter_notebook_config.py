@@ -36,7 +36,7 @@ c = get_config()
 c.Application.log_datefmt = '%Y-%m-%d %H:%M:%S'
 
 # The Logging format template
-c.Application.log_format = '[%(name)s]%(highlevel)s %(message)s'
+# c.Application.log_format = '[%(name)s]%(highlevel)s %(message)s'
 
 # Set the log level by value or name.
 # c.Application.log_level = 30
@@ -186,7 +186,7 @@ c.NotebookApp.ip = '*'
 # c.NotebookApp.mathjax_url = ''
 
 # The directory to use for notebooks and kernels.
-# c.NotebookApp.notebook_dir = u''
+c.NotebookApp.notebook_dir = u'/jupyter_notebook'
 
 # Whether to open in a browser after starting. The specific browser used is
 # platform dependent and determined by the python standard library `webbrowser`

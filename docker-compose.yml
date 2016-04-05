@@ -1,8 +1,8 @@
 version: "2"
 services:
 
-  jupyternotebook:
-    container_name: jupyter-vm
+  jupyterimage:
+    container_name: jupyternotebook
     build: build
     ulimits:
       nofile:
