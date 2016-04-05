@@ -31,4 +31,4 @@ EXPOSE 8888
 
 USER admin
 WORKDIR ${JUPYTER_HOME}
-CMD jupyter notebook
+ENTRYPOINT ["switch","shell=/bin/bash","--","jupyter","notebook"]
