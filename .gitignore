@@ -10,6 +10,7 @@ tests/
 .sync-config.cson
 .remote-sync.json
 
+#
 .tags
 *.swp
 *.lck

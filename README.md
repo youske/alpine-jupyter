@@ -24,7 +24,9 @@ docker-compose up -d
     docker run -it --volumes-from jupyternotebook_container youske/alpine-jupyter
 
 
-# images
-youske/alpine-jupyter
+# 諸設定
+利便性のためにこのイメージには次のカーネルを初期インストールしている
+
   + metakernel_bash
   + metakernel_python
+  + redis_kernel
