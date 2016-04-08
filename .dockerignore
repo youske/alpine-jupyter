@@ -1,13 +1,10 @@
 #
-.git
 node_modules/
 vendor/
 tests/
 
 #
-.gitignore
-.gitkeep
-.gitattribute
+.git*
 .sync-config.cson
 .remote-sync.json
 LICENSE*

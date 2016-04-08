@@ -4,9 +4,6 @@ vendor/
 tests/
 
 #
-.gitignore
-.gitkeep
-.gitattribute
 .sync-config.cson
 .remote-sync.json
 

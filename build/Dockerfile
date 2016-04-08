@@ -5,7 +5,8 @@ FROM youske/alpine-conda:latest
 MAINTAINER youske miyakoshi <youske@gmail.com>
 
 ENV JUPYTER_HOME=/jupyter_notebook \
-    LANG=C.UTF-8
+    LANG=C.UTF-8\
+    PORT=8888
 ENV PACKAGE='' \
     BUILD_PACKAGE='wget git ca-certificates build-base musl-dev linux-headers' \
     CONDA_PACKAGE='jupyter dateutil pyyaml pandas scipy numpy cython' \
@@ -24,11 +25,11 @@ RUN pip install https://github.com/ipython-contrib/IPython-notebook-extensions/a
 RUN apk del buildpack --no-cache && rm -rf /tmp/* /var/cache/apk/*
 
 RUN mkdir -p ${JUPYTER_HOME} && mkdir -p /home/admin/.jupyter
-COPY jupyter_notebook_config.py /home/admin/.jupyter/jupyter_notebook_config.py
 RUN chown -R admin:admin ${JUPYTER_HOME} /home/admin
+COPY jupyter_notebook_config.py.tmpl /home/admin/.jupyter/jupyter_notebook_config.py.tmpl
 
-EXPOSE 8888
+EXPOSE ${PORT}
 
 USER admin
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["switch","shell=/bin/bash","--","jupyter","notebook"]
+ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","switch","shell=/bin/bash","--","jupyter","notebook"]
