@@ -16,8 +16,15 @@ services:
     networks:
       - front
 
+redis:
+  image: youske/alpine-redis
+  networks:
+    - front
+
 volumes:
   notebook:
+    driver: local
+  data:
     driver: local
 
 networks:
