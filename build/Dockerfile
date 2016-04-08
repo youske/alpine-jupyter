@@ -24,11 +24,11 @@ RUN pip install https://github.com/ipython-contrib/IPython-notebook-extensions/a
 RUN apk del buildpack --no-cache && rm -rf /tmp/* /var/cache/apk/*
 
 RUN mkdir -p ${JUPYTER_HOME} && mkdir -p /home/admin/.jupyter
-COPY jupyter_notebook_config.py /home/admin/.jupyter/jupyter_notebook_config.py
+COPY jupyter_notebook_config.py.tmpl /home/admin/.jupyter/jupyter_notebook_config.py.tmpl
 RUN chown -R admin:admin ${JUPYTER_HOME} /home/admin
 
 EXPOSE 8888
 
 USER admin
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["switch","shell=/bin/bash","--","jupyter","notebook"]
+ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py.tmpl","--","switch","shell=/bin/bash","--","jupyter","notebook"]
