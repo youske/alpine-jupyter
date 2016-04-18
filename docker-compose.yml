@@ -14,12 +14,12 @@ services:
     volumes:
       - notebook:/jupyter_notebook
     networks:
-      - front
+      - omni
 
-redis:
-  image: youske/alpine-redis
-  networks:
-    - front
+#redis:
+#  image: youske/alpine-redis
+#  networks:
+#    - omni
 
 volumes:
   notebook:
@@ -28,5 +28,6 @@ volumes:
     driver: local
 
 networks:
-  front:
-    driver: bridge
+  omni:
+    external:
+      name: omni-network
