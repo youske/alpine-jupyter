@@ -9,8 +9,8 @@ ENV JUPYTER_HOME=/jupyter_notebook \
     PORT=8888
 ENV PACKAGE='libstdc++' \
     BUILD_PACKAGE='wget git ca-certificates build-base musl-dev linux-headers' \
-    CONDA_PACKAGE='jupyter dateutil pyyaml pandas scipy numpy cython' \
-    PIP_PACKAGE='metakernel_bash metakernel_python redis_kernel'
+    CONDA_PACKAGE='jupyter dateutil pyyaml pandas scipy numpy cython bokeh' \
+    PIP_PACKAGE='metakernel_bash metakernel_python redis_kernel pandas-td pandas-datareader'
 
 RUN apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildpack
 RUN conda update -q -y conda && conda install -y ${CONDA_PACKAGE} && conda clean -itpsly
@@ -32,4 +32,4 @@ EXPOSE ${PORT}
 
 USER admin
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","switch","shell=/bin/bash","--","jupyter","notebook"]
+ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","switch","shell=/bin/bash","--","sh","-c","jupyter notebook --no-browser --ip=* "]
