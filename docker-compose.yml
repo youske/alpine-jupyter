@@ -13,6 +13,8 @@ services:
       - "8888:8888"
     volumes:
       - notebook:/jupyter_notebook
+    networks:
+      - omni
 
 #redis:
 #  image: youske/alpine-redis
@@ -24,3 +26,8 @@ volumes:
     driver: local
   data:
     driver: local
+
+networks:
+  omni:
+    external:
+      name: omni-network
