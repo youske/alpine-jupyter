@@ -16,15 +16,63 @@ services:
     networks:
       - omni
 
-#redis:
-#  image: youske/alpine-redis
-#  networks:
-#    - omni
+  elixir_image:
+      build: elixir
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
+  nodejs_image:
+      build: nodejs
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
+  go_image:
+      build: go
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
+  julia_image:
+      build: julia
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
+  php_image:
+      build: php
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
+  ruby_image:
+      build: ruby
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
 
 volumes:
   notebook:
-    driver: local
-  data:
     driver: local
 
 networks:

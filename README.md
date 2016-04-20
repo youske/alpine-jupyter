@@ -5,13 +5,13 @@ dockerfile alpine with jupyter
 youske/alpine-conda
 
 # run
+docker-compose up --no-color --no-deps jupyterimage
 
 1. docker run youske/alpine-jupyter
 2. root権限で動作
 3. /jupyter_notebookをホームディレクトリとする
 
 
-docker-compose up -d
 
 # volume
 /jupyter_notebookにマウントさせるとnotebookのルートとなるため
