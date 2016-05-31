@@ -14,8 +14,8 @@ ENV JUPYTER_HOME=/jupyter_notebook \
 USER root
 WORKDIR /
 
-# go package
-RUN apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildtool
+# jukia package
+RUN apk update --no-cache && apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildtool
 
 USER admin
 

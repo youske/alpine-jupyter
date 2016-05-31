@@ -13,7 +13,7 @@ USER root
 WORKDIR /
 
 # elixir & erlang package
-RUN apk add ${PACKAGE} --no-cache
+RUN apk update --no-cache && apk add ${PACKAGE} --no-cache
 
 # IElixir kernel
 RUN git clone https://github.com/pprzetacznik/IElixir.git

@@ -15,7 +15,7 @@ USER root
 WORKDIR /
 
 # go package
-RUN apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildtool
+RUN apk update --no-cache && apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildtool
 
 USER admin
 

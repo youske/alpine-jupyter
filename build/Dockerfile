@@ -7,12 +7,12 @@ MAINTAINER youske miyakoshi <youske@gmail.com>
 ENV JUPYTER_HOME=/jupyter_notebook \
     LANG=C.UTF-8\
     PORT=8888
-ENV PACKAGE='libstdc++' \
-    BUILD_PACKAGE='wget git ca-certificates build-base musl-dev linux-headers' \
+ENV PACKAGE='gawk git ca-certificates ' \
+    BUILD_PACKAGE='wget build-base musl-dev linux-headers' \
     CONDA_PACKAGE='jupyter matplotlib dateutil pyyaml pymysql sqlalchemy psycopg2 pandas scipy numpy cython bokeh xlrd xlutils openpyxl' \
     PIP_PACKAGE='metakernel_bash metakernel_python redis_kernel pandas-td pandas-datareader '
 
-RUN apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildpack
+RUN apk update --no-cache && apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildpack
 RUN conda update -q -y conda && conda install -y ${CONDA_PACKAGE} && conda clean -itpsly
 RUN pip install ${PIP_PACKAGE}
 

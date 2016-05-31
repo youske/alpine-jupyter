@@ -15,7 +15,7 @@ WORKDIR /
 
 
 # php package
-RUN apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildtool
+RUN apk update --no-cache && apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildtool
 RUN wget https://litipk.github.io/Jupyter-PHP-Installer/dist/jupyter-php-installer.phar
 
 # ijavascript kernel

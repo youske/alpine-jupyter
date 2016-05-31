@@ -70,6 +70,15 @@ services:
       networks:
         - omni
 
+  kerneldev_image:
+      build: kerneldev
+      ports:
+        - "8888"
+      volumes:
+        - notebook:/jupyter_notebook
+      networks:
+        - omni
+
 
 volumes:
   notebook:
