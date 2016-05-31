@@ -25,6 +25,5 @@ RUN wget https://litipk.github.io/Jupyter-PHP-Installer/dist/jupyter-php-install
 
 EXPOSE ${PORT}
 
-USER admin
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=/bin/bash","--","sh","-c","jupyter","notebook"]
+ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","su","admin","-c","jupyter notebook --no-browser --ip=*"]

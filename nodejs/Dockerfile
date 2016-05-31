@@ -23,6 +23,5 @@ RUN apk del buildtool --no-cache && rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE ${PORT}
 
-USER admin
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=/bin/bash","--","sh","-c","ijs"]
+ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","sh","-c","jupyter notebook --no-browser --ip=*"]
