@@ -186,7 +186,7 @@ c.NotebookApp.ip = '*'
 # c.NotebookApp.mathjax_url = ''
 
 # The directory to use for notebooks and kernels.
-c.NotebookApp.notebook_dir = u'/jupyter_notebook'
+c.NotebookApp.notebook_dir = u'/home/admin'
 
 # Whether to open in a browser after starting. The specific browser used is
 # platform dependent and determined by the python standard library `webbrowser`
@@ -204,7 +204,7 @@ c.NotebookApp.open_browser = False
 # c.NotebookApp.password = u''
 
 # The port the notebook server will listen on.
-c.NotebookApp.port = {{ var "PORT" | default "8888" }}
+c.NotebookApp.port = 8888
 
 # The number of additional ports to try if the specified port is not available.
 # c.NotebookApp.port_retries = 50

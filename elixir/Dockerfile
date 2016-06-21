@@ -22,7 +22,7 @@ RUN git clone https://github.com/pprzetacznik/IElixir.git
 
 COPY kernel.json /home/admin/.ipython/kernels/ielixir/kernel.json
 
-EXPOSE ${PORT}
+#EXPOSE ${PORT}
 
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","su","admin","-c","jupyter notebook --no-browser --ip=*"]
+#ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","sh","-c","/conda/bin/jupyter notebook --no-browser --ip=*"]

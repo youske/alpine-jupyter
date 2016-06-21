@@ -29,7 +29,7 @@ COPY kernel.json /home/admin/.ipython/kernels/gophernotes/kernel.json
 USER root
 #RUN apk del buildtool --no-cache && rm -rf /tmp/* /var/cache/apk/*
 
-EXPOSE ${PORT}
+#EXPOSE ${PORT}
 
 WORKDIR ${JUPYTER_HOME}
-ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","su","admin","-c","jupyter notebook --no-browser --ip=*"]
+#ENTRYPOINT ["render","/home/admin/.jupyter/jupyter_notebook_config.py","--","render","/home/admin/.ipython/profile_default/ipython_config.py","--","switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","su","admin","-c","jupyter notebook --no-browser --ip=*"]

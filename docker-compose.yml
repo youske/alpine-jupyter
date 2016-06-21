@@ -1,8 +1,7 @@
 version: "2"
 services:
 
-  jupyterimage:
-    container_name: jupyternotebook
+  jupyter:
     build: build
     ulimits:
       nofile:
@@ -13,78 +12,60 @@ services:
       - "8888:8888"
     volumes:
       - notebook:/jupyter_notebook
-    networks:
-      - omni
 
-  elixir_image:
+  elixir:
       build: elixir
       ports:
-        - "8888"
+        - "8888:8888"
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
-  nodejs_image:
+  nodejs:
       build: nodejs
       ports:
-        - "8888"
+        - "8888:8888"
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
-  go_image:
+  go:
       build: go
       ports:
-        - "8888"
+        - "8888:8888"
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
-  julia_image:
+  julia:
       build: julia
       ports:
-        - "8888"
+        - "8888:8888"
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
-  php_image:
+  php:
       build: php
       ports:
-        - "8888"
+        - "8888:8888"
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
-  ruby_image:
+  ruby:
       build: ruby
       ports:
-        - "8888"
+        - "8888:8888"
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
-  kerneldev_image:
+  kerneldev:
       build: kerneldev
       ports:
-        - "8888"
+        - "8888:8888"
+      stdin_open: true
+      tty: true
       volumes:
         - notebook:/jupyter_notebook
-      networks:
-        - omni
 
 
 volumes:
   notebook:
     driver: local
 
-networks:
-  omni:
-    external:
-      name: omni-network

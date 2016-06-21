@@ -1,0 +1,21 @@
+{
+  "nbformat": 1,
+  "NotebookApp": {
+    "contents_manager_class": "jupyterdrive.mixednbmanager.MixedContentsManager",
+    "tornado_settings": {
+      "contents_js_source": "nbextensions/gdrive/mixed-contents"
+    }
+  },
+  "MixedContentsManager": {
+    "filesystem_scheme": [
+      {
+        "root": "local",
+        "contents": "IPython.html.services.contents.filenamager.FileContentsManager"
+      },
+      {
+        "root":"gdrive",
+        "contents": "jupyterdrive.clientsidenbmanager.ClientSideContentsManager"
+      }
+    ]
+  }
+}
