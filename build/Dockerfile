@@ -9,7 +9,7 @@ ENV JUPYTER_HOME=/jupyter_notebook \
     PORT=8888
 ENV PACKAGE='sudo gawk git ncurses ca-certificates' \
     BUILD_PACKAGE='wget build-base musl-dev linux-headers' \
-    CONDA_PACKAGE='jupyter matplotlib dateutil pyyaml pymysql sqlalchemy psycopg2 pandas scipy numpy cython bokeh xlrd xlutils openpyxl' \
+    CONDA_PACKAGE='jupyter matplotlib dateutil pyyaml pymysql sqlalchemy psycopg2 pandas scipy numpy cython bokeh xlrd xlutils openpyxl ipywidgets' \
     PIP_PACKAGE='psutil jupyter_cms metakernel_bash metakernel_python redis_kernel pandas-td pandas-datareader ' \
     WIDGET_PACKAGE='ipyleaflet bqplot pythreejs'
 
@@ -22,7 +22,8 @@ RUN jupyter cms quick-setup --sys-prefix && \
     jupyter nbextension enable jupyter_cms --py --sys-prefix && \
     jupyter nbextension enable --py ipyleaflet && \
     jupyter nbextension enable --py bqplot && \
-    jupyter nbextension enable --py pythreejs
+    jupyter nbextension enable --py pythreejs && \
+    jupyter nbextension enable --py widgetsnbextension
 
 
 WORKDIR /tmp
@@ -48,14 +49,12 @@ RUN git clone https://github.com/ipython-contrib/IPython-notebook-extensions
 #&& \
 #    cd IPython-notebook-extensions && python setup.py install
 
-
 USER root
 
 # remove buildpack
 RUN apk del buildpack --no-cache && rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE ${PORT}
-
 WORKDIR /home/admin
 ENTRYPOINT ["switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","/init"]
 CMD ["gosu","admin","jupyter", "notebook", "--no-browser","--ip=*"]

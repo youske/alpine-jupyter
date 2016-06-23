@@ -4,56 +4,61 @@ services:
   jupyter:
     build: build
     ulimits:
+      nproc: 65535
       nofile:
         soft: 20000
         hard: 40000
-      nproc: 65535
     ports:
       - "8888:8888"
     volumes:
-      - notebook:/jupyter_notebook
+      - notebook:/home/admin
 
   elixir:
       build: elixir
       ports:
         - "8888:8888"
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/home/admin
 
   nodejs:
       build: nodejs
+      ulimits:
+        nproc: 65535
+        nofile:
+          soft: 20000
+          hard: 40000
       ports:
         - "8888:8888"
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/workdir
 
   go:
       build: go
       ports:
         - "8888:8888"
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/workdir
 
   julia:
       build: julia
       ports:
         - "8888:8888"
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/workdir
 
   php:
       build: php
       ports:
         - "8888:8888"
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/workdir
 
   ruby:
       build: ruby
       ports:
         - "8888:8888"
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/workdir
 
   kerneldev:
       build: kerneldev
@@ -62,10 +67,44 @@ services:
       stdin_open: true
       tty: true
       volumes:
-        - notebook:/jupyter_notebook
+        - notebook:/workdir
 
+  phosphide:
+      build: phosphide
+      ports:
+        - "8888:8888"
+      volumes:
+        - notebook:/workdir
+
+  selenium:
+      build: selenium
+      ports:
+        - "8888:8888"
+      volumes:
+        - notebook:/workdir
+
+  chainer:
+      build: chainer
+      ports:
+        - "8888:8888"
+      volumes:
+        - notebook:/workdir
+
+
+  tensorflow:
+      build: tensorflow
+      ports:
+        - "8888:8888"
+      volumes:
+        - notebook:/workdir
+
+  word2vec:
+      build: word2vec
+      ports:
+        - "8888:8888"
+      volumes:
+        - notebook:/workdir
 
 volumes:
   notebook:
     driver: local
-
