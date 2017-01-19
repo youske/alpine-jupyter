@@ -1,60 +1,25 @@
 # Alpine Linux miniconda with Jupyter
 # youske/alpine-conda based
-
-FROM youske/alpine-conda:latest
+FROM youske/alpine-conda:miniconda
 MAINTAINER youske miyakoshi <youske@gmail.com>
 
-ENV JUPYTER_HOME=/jupyter_notebook \
-    LANG=C.UTF-8\
-    PORT=8888
-ENV PACKAGE='sudo gawk git ncurses ca-certificates' \
-    BUILD_PACKAGE='wget build-base musl-dev linux-headers' \
-    CONDA_PACKAGE='jupyter matplotlib dateutil pyyaml pymysql sqlalchemy psycopg2 pandas scipy numpy cython bokeh xlrd xlutils openpyxl ipywidgets' \
-    PIP_PACKAGE='psutil jupyter_cms metakernel_bash metakernel_python redis_kernel pandas-td pandas-datareader ' \
-    WIDGET_PACKAGE='ipyleaflet bqplot pythreejs'
+LABEL com.geeplus.description="alpine jupyter image" \
+      com.geeplus.role="jupyter baseimage"
 
-RUN apk update --no-cache && apk add ${PACKAGE} --no-cache && apk add ${BUILD_PACKAGE} --no-cache -t buildpack
-RUN conda update -q -y conda && conda install -y ${CONDA_PACKAGE} && conda clean -itpsly
-RUN pip install -U ${PIP_PACKAGE} ${WIDGET_PACKAGE}
+ENV LANG=C.UTF-8
 
-# cms
-RUN jupyter cms quick-setup --sys-prefix && \
-    jupyter nbextension enable jupyter_cms --py --sys-prefix && \
-    jupyter nbextension enable --py ipyleaflet && \
-    jupyter nbextension enable --py bqplot && \
-    jupyter nbextension enable --py pythreejs && \
-    jupyter nbextension enable --py widgetsnbextension
+RUN BUILD='alpine-sdk linux-headers nodejs gcc g++ gfortran make cmake python-dev freetype-dev musl-dev python-dev libpng-dev libxml2-dev libxslt-dev' && \
+    apk update --no-cache && apk add --no-cache --virtual=build-deps ${BUILD} && \
+    PACKAGE='jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator ipywidgets jupyter_cms tqdm pandas pandas-datareader pandas-td scipy numpy matplotlib bokeh cython pymysql sqlalchemy metakernel_bash metakernel_python folium lxml nltk' && \
+    pip install -U ${PACKAGE} && \
+    jupyter contrib nbextension install --sys-prefix && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter nbextensions_configurator enable --sys-prefix && \
+    jupyter cms quick-setup --sys-prefix && \
+    mkdir -p ~/.jupyter && mkdir -p ~/.ipython/profile_default && \
+    # remove cache
+    rm -rf /tmp/* /var/cache/apk/* && rm -rf /root/.cache && \
 
-
-WORKDIR /tmp
-
-# jupyter-drive
-RUN git clone https://github.com/jupyter/jupyter-drive.git && \
-    pip install -e jupyter-drive && \
-    python -m jupyterdrive --mixed
-
-USER admin
-
-RUN mkdir -p /home/admin/.jupyter && mkdir -p /home/admin/.ipython/profile_default
-COPY jupyter_notebook_config.py.tmpl /home/admin/.jupyter/jupyter_notebook_config.py
-#COPY jupyter_notebook_config.json /home/admin/.jupyter/jupyter_notebook_config.json
-COPY ipython_config.py.tmpl /home/admin/.ipython/profile_default/ipython_config.py
-
-# RISE
-RUN git clone https://github.com/damianavila/RISE && \
-    cd RISE && python setup.py install
-
-# nbextention
-RUN git clone https://github.com/ipython-contrib/IPython-notebook-extensions
-#&& \
-#    cd IPython-notebook-extensions && python setup.py install
-
-USER root
-
-# remove buildpack
-RUN apk del buildpack --no-cache && rm -rf /tmp/* /var/cache/apk/*
-
-EXPOSE ${PORT}
-WORKDIR /home/admin
-ENTRYPOINT ["switch","shell=su admin -c /bin/bash","--","switch","root=/bin/bash","--","/init"]
-CMD ["gosu","admin","jupyter", "notebook", "--no-browser","--ip=*"]
+COPY ipython_config.py.tmpl ~/.ipython/profile_default/ipython_config.py
+EXPOSE 8888
+CMD ["jupyter","notebook","--no-browser", "--ip=*","--port=8888","--notebook-dir=/workdir"]
