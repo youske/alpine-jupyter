@@ -11,14 +11,14 @@ ENV LANG=C.UTF-8
 RUN BUILD='alpine-sdk linux-headers nodejs gcc g++ gfortran make cmake python-dev freetype-dev musl-dev python-dev libpng-dev libxml2-dev libxslt-dev' && \
     apk update --no-cache && apk add --no-cache --virtual=build-deps ${BUILD} && \
     PACKAGE='jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator ipywidgets jupyter_cms tqdm pandas pandas-datareader pandas-td scipy numpy matplotlib bokeh cython pymysql sqlalchemy metakernel_bash metakernel_python folium lxml nltk' && \
-    pip install -U ${PACKAGE} && \
+    pip install ${PACKAGE} && \
     jupyter contrib nbextension install --sys-prefix && \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter nbextensions_configurator enable --sys-prefix && \
     jupyter cms quick-setup --sys-prefix && \
     mkdir -p ~/.jupyter && mkdir -p ~/.ipython/profile_default && \
     # remove cache
-    rm -rf /tmp/* /var/cache/apk/* && rm -rf /root/.cache && \
+    rm -rf /tmp/* /var/cache/apk/* && rm -rf /root/.cache
 
 COPY ipython_config.py.tmpl ~/.ipython/profile_default/ipython_config.py
 EXPOSE 8888

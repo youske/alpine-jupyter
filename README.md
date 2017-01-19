@@ -12,7 +12,6 @@ docker-compose up --no-color --no-deps jupyterimage
 3. /jupyter_notebookをホームディレクトリとする
 
 
-
 # volume
 /jupyter_notebookにマウントさせるとnotebookのルートとなるため
 以下のようにデータコンテナを作り
