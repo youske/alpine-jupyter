@@ -14,7 +14,7 @@ RUN BUILD='alpine-sdk linux-headers nodejs gcc g++ gfortran make cmake python-de
     PACKAGE='jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator ipywidgets jupyter_cms tqdm pandas pandas-datareader pandas-td scipy numpy matplotlib bokeh cython pymysql sqlalchemy metakernel_bash metakernel_python folium lxml nltk' && \
     pip install ${PACKAGE} && \
     jupyter contrib nbextension install --sys-prefix && \
-    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \/ipython_config.py
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \ 
     jupyter nbextensions_configurator enable --sys-prefix && \
     jupyter cms quick-setup --sys-prefix && \
     mkdir -p /home/admin/.jupyter && mkdir -p /home/admin/.ipython/profile_default && \
