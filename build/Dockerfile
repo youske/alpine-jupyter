@@ -8,18 +8,20 @@ LABEL com.geeplus.description="alpine jupyter image" \
 
 ENV LANG=C.UTF-8
 
+COPY ipython_config.py.tmpl /tmp/ipython_config.py
 RUN BUILD='alpine-sdk linux-headers nodejs gcc g++ gfortran make cmake python-dev freetype-dev musl-dev python-dev libpng-dev libxml2-dev libxslt-dev' && \
     apk update --no-cache && apk add --no-cache --virtual=build-deps ${BUILD} && \
     PACKAGE='jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator ipywidgets jupyter_cms tqdm pandas pandas-datareader pandas-td scipy numpy matplotlib bokeh cython pymysql sqlalchemy metakernel_bash metakernel_python folium lxml nltk' && \
     pip install ${PACKAGE} && \
     jupyter contrib nbextension install --sys-prefix && \
-    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \/ipython_config.py
     jupyter nbextensions_configurator enable --sys-prefix && \
     jupyter cms quick-setup --sys-prefix && \
-    mkdir -p ~/.jupyter && mkdir -p ~/.ipython/profile_default && \
+    mkdir -p /home/admin/.jupyter && mkdir -p /home/admin/.ipython/profile_default && \
+    cp /tmp/ipython_config.py /home/admin/.ipython/profile_default/ipython_config.py && \
+    chown -R admin:admin /home/admin && \
     # remove cache
     rm -rf /tmp/* /var/cache/apk/* && rm -rf /root/.cache
 
-COPY ipython_config.py.tmpl ~/.ipython/profile_default/ipython_config.py
 EXPOSE 8888
-CMD ["jupyter","notebook","--no-browser", "--ip=*","--port=8888","--notebook-dir=/workdir"]
+CMD ["gosu","admin","jupyter","notebook","--no-browser", "--ip=*","--port=8888","-homcp /tmp/ipython_config.py.tmpl /home/admin/e/admin/notebook-dir=/workdir]home/admin/ && \
