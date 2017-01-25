@@ -4,6 +4,9 @@
 FROM youske/alpine-jupyter:latest
 MAINTAINER youske miyakoshi <youske@gmail.com>
 
+LABEL com.geeplus.description="alpine jupyter go image" \
+      com.geeplus.role="jupyter golang image"
+
 ENV JUPYTER_HOME=/jupyter_notebook \
     LANG=C.UTF-8 \
     PORT=8888 \
