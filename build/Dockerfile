@@ -11,13 +11,18 @@ ENV LANG=C.UTF-8
 COPY ipython_config.py.tmpl /tmp/ipython_config.py
 RUN BUILD='alpine-sdk linux-headers nodejs gcc g++ gfortran make cmake python-dev freetype-dev musl-dev python-dev libpng-dev libxml2-dev libxslt-dev' && \
     apk update --no-cache && apk add --no-cache --virtual=build-deps ${BUILD} && \
-    PACKAGE='jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator jupyter_dashboards ipywidgets jupyter_cms tqdm pandas pandas-datareader pandas-td scipy numpy matplotlib bokeh cython pymysql sqlalchemy metakernel_bash metakernel_python folium lxml nltk' && \
+    PACKAGE='jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator jupyter_dashboards jupyter_sphinx_theme ipyparallel ipywidgets jupyter_cms tqdm pandas pandas-datareader pandas-td scipy numpy matplotlib bokeh cython pymysql sqlalchemy bash_kernel metakernel metakernel_bash metakernel_python paramiko folium lxml nltk' && \
     pip install ${PACKAGE} && \
     jupyter contrib nbextension install --sys-prefix && \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter nbextensions_configurator enable --sys-prefix && \
     jupyter dashboards quick-setup --sys-prefix && \
     jupyter cms quick-setup --sys-prefix && \
+    ipcluster nbextension enable && \
+    python -m bash_kernel.install && \
+    # kernels
+    npm install -g ijavascript && \
+    # user settings
     mkdir -p /home/admin/.jupyter && mkdir -p /home/admin/.ipython/profile_default && \
     cp /tmp/ipython_config.py /home/admin/.ipython/profile_default/ipython_config.py && \
     chown -R admin:admin /home/admin && \
